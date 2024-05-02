@@ -5,6 +5,26 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
+				"C:/Users/admin/Documents/Github/Corry/Content/KYJ/Maps/KYJTestMap.umap",
+				"C:/Users/admin/Documents/Github/Corry/Content/VRTemplate/Blueprints/Grabbable_SmallCube.uasset",
+				"C:/Users/admin/Documents/Github/Corry/Content/KYJ/Blueprints/BP_Wire.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/VRTemplate/Blueprints/VRPawn.uasset",
+				"C:/UnrealProjects/Corry/Content/StarterContent/Architecture/Floor_400x400.uasset",
+				"C:/UnrealProjects/Corry/Content/VRTemplate/Maps/VRTemplateMap.umap",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/__ExternalActors__/RTY/Only/D/0X/M1EVETTDQHPRO91T0RQG3T.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/KSH/NewMap.umap",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/KSH/Maps/NewMap.umap",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/VRTemplate/Maps/VRTemplateMap_BuiltData.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/VRTemplate/Blueprints/VRTeleportVisualizer.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/KSH/Blueprints/BP_CorryGameModeBase.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/KSH/Blueprints/BP_CorryPlayer.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/VRTemplate/Maps/VRTemplateMap.umap",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/KSH/Inputs/PMI_CorryPlayer.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/KSH/Inputs/Actions/IA_PlayerMove.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/KSH/Inputs/IMC_CorryPlayer.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/KSH/Inputs/Actions/IA_PlayerTurn.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/KSH/Inputs/Actions/IA_Teleport.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/RTY/Only.umap",
 				"D:/Unreal Project/Git/Corry/Content/RTY/Only_BuiltData.uasset",
 				"D:/Unreal Project/Git/Corry/Content/RTY/Only.umap",
 				"D:/Unreal Project/Git/Corry/Content/__ExternalActors__/RTY/Only/9/W1/F23FLM6L79WPQB37HIRGS8.uasset",
@@ -1191,13 +1211,7 @@
 				"D:/Unreal Project/Git/Corry/Content/__ExternalActors__/RTY/Only/4/N0/0Y2ZTM0D4FWW50Q73B138P.uasset",
 				"D:/Unreal Project/Git/Corry/Content/__ExternalActors__/RTY/Only/9/B2/0KELCHM2MK92WSL61URTIE.uasset",
 				"D:/Unreal Project/Git/Corry/Content/__ExternalActors__/RTY/Only/A/R5/04CUIA9WLKMTNCJUD0XPL0.uasset",
-				"C:/Users/admin/Documents/Github/Corry/Content/KYJ/Maps/KYJTestMap.umap",
-				"C:/Users/admin/Documents/Github/Corry/Content/KYJ/Maps/KYJTestMap_BuiltData.uasset",
-				"C:/Users/admin/Documents/Github/Corry/Content/VRTemplate/Blueprints/Grabbable_SmallCube.uasset",
-				"C:/Users/admin/Documents/Github/Corry/Content/KYJ/Blueprints/BP_Wire.uasset",
-				"C:/Users/admin/Documents/Github/Corry/Content/VRTemplate/Blueprints/VRPawn.uasset",
-				"C:/UnrealProjects/Corry/Content/StarterContent/Architecture/Floor_400x400.uasset",
-				"C:/UnrealProjects/Corry/Content/VRTemplate/Maps/VRTemplateMap.umap"
+				"C:/Users/admin/Documents/Github/Corry/Content/KYJ/Maps/KYJTestMap_BuiltData.uasset"
 			]
 		}
 	]
