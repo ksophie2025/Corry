@@ -2,11 +2,20 @@
 
 
 #include "CorryPlayer.h"
+//----------------------------------
+#include "EchoActor.h"
+#include "Kismet/GameplayStatics.h"
+//----------------------------------
 #include <Camera/CameraComponent.h>
 #include <MotionControllerComponent.h>
 #include <../../../../../../../Plugins/EnhancedInput/Source/EnhancedInput/Public/EnhancedInputSubsystems.h>
 #include <../../../../../../../Plugins/EnhancedInput/Source/EnhancedInput/Public/EnhancedInputComponent.h>
 #include <../../../../../../../Source/Runtime/Engine/Classes/Components/CapsuleComponent.h>
+#include <../../../../../../../Plugins/FX/Niagara/Source/Niagara/Public/NiagaraComponent.h>
+#include <../../../../../../../Plugins/FX/Niagara/Source/Niagara/Classes/NiagaraDataInterfaceArrayFunctionLibrary.h>
+#include <../../../../../../../Source/Runtime/Engine/Public/EngineUtils.h>
+
+
 
 // Sets default values
 ACorryPlayer::ACorryPlayer()
@@ -62,12 +71,20 @@ ACorryPlayer::ACorryPlayer()
 	}
 
 	// 써클을 생성하고 충돌처리가 되지 않게 처리하고 싶다.
-	teleportCircle = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Teleport Circle"));
-	teleportCircle->SetupAttachment(RootComponent);
-	teleportCircle->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	teleportCircleVFX = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Teleport Circle VFX"));
+	teleportCircleVFX->SetupAttachment(RootComponent);
+	teleportCircleVFX->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
+	teleportTraceVFX = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Teleport Trace VFX"));
+	teleportTraceVFX->SetupAttachment(RootComponent);
 
+	// -------------------------------------------------------
+	echoRoot =  CreateDefaultSubobject<USceneComponent>(TEXT("Echo Root"));
+	echoRoot->SetupAttachment(vrCamera);
+	//echoRoot->SetRelativeLocation(FVector(-100,0,0));
+	
 }
+
 
 void ACorryPlayer::BeginPlay()
 {
@@ -89,6 +106,16 @@ void ACorryPlayer::BeginPlay()
 	}
 
 	ResetTeleport();
+
+	// ------------------------------------------------------
+	//auto list = UGameplayStatics::GetAllActorsOfClass(GetWorld(), AActor::StaticClass());
+		
+	TArray<AActor*> echoes;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AEchoActor::StaticClass(), echoes);
+	
+	echo = Cast<AEchoActor>(echoes[0]);
+	
+	echo->AttachToComponent(echoRoot, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 }
 
 void ACorryPlayer::Tick(float DeltaTime)
@@ -100,6 +127,7 @@ void ACorryPlayer::Tick(float DeltaTime)
 	// 만약 버튼이 눌러졌다면
 	if (bTeleporting)
 	{
+		UNiagaraDataInterfaceArrayFunctionLibrary::SetNiagaraArrayVector(teleportTraceVFX, FName("User.PointArray"), points);
 		// 만약 곡선이면
 		if (bTeleportCurve)
 		{
@@ -136,6 +164,8 @@ void ACorryPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		input->BindAction(ia_teleport, ETriggerEvent::Started, this, &ACorryPlayer::OnIATeleportStart);
 		// 뗐을 때 OnIATeleportEnd
 		input->BindAction(ia_teleport, ETriggerEvent::Completed, this, &ACorryPlayer::OnIATeleportEnd);
+
+		// input->BindAction(ia_j, ETriggerEvent::Started, echo, &AEcho)
 	}
 }
 
@@ -163,9 +193,16 @@ void ACorryPlayer::OnIATeleportEnd(const FInputActionValue& value)
 {
 	// 텔레포트 버튼을 떼면 써클안보이고 싶다.
 	// 만약 써클이 활성화 되어 있다면, 목적지로 이동하고 싶다
-	if (teleportCircle->GetVisibleFlag())
+	if (teleportCircleVFX->GetVisibleFlag())
 	{
-		DoTeleport();
+		if (bWarp)
+		{
+			DoWarp();
+		}
+		else
+		{
+			DoTeleport();
+		}
 	}
 
 	ResetTeleport(); // 초기화 함수 실행	
@@ -173,7 +210,7 @@ void ACorryPlayer::OnIATeleportEnd(const FInputActionValue& value)
 
 void ACorryPlayer::DrawLine(const FVector& start, const FVector& end)
 {
-	DrawDebugLine(GetWorld(), start, end, FColor::Red, false, -1, 0, 1);
+	//DrawDebugLine(GetWorld(), start, end, FColor::Red, false, -1, 0, 1);
 }
 
 bool ACorryPlayer::HitTest(FVector start, FVector end, FHitResult& OutHitInfo)
@@ -188,7 +225,7 @@ void ACorryPlayer::ResetTeleport()
 	// 텔레보트 중이 아님.
 	bTeleporting = false;
 	// 써클을 보이지 않게
-	teleportCircle->SetVisibility(false);
+	teleportCircleVFX->SetVisibility(false);
 }
 
 void ACorryPlayer::DoTeleport()
@@ -249,14 +286,14 @@ bool ACorryPlayer::CheckHitTeleport(const FVector& start, FVector& end)
 		teleportLocation = hitInfo.Location;
 
 		// 그 곳에 써클을 보이게 하고, 배치하고 
-		teleportCircle->SetWorldLocation(hitInfo.Location);
-		teleportCircle->SetVisibility(true);
+		teleportCircleVFX->SetWorldLocation(hitInfo.Location);
+		teleportCircleVFX->SetVisibility(true);
 	}
 	// 그렇지 않다면
 	else
 	{
 		// 써클을 보이지 않게 하고 싶다.
-		teleportCircle->SetVisibility(false);
+		teleportCircleVFX->SetVisibility(false);
 	}
 	return bHit;
 }
@@ -286,4 +323,43 @@ void ACorryPlayer::DrawCurve(int max)
 	{
 		DrawLine(points[i], points[i + 1]);
 	}
+}
+
+void ACorryPlayer::DoWarp()
+{
+	if (!bWarp)
+		return;
+
+	// 시간이 흐르다가 워프 이동시간이 끝나면 워프 종료
+	currentTime = 0;
+
+	FVector height = FVector(0, 0, GetCapsuleComponent()->GetScaledCapsuleHalfHeight());
+	FVector tarLoc = teleportLocation + height;
+	FVector originLoc = GetActorLocation();
+
+	// 충돌체를 끄고 싶다 (이동 중에는 끄기)
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	GetWorld()->GetTimerManager().SetTimer(warpTimerHandle, FTimerDelegate::CreateLambda([&, originLoc, tarLoc]()->void {
+
+		// 이동처리
+		currentTime += GetWorld()->GetDeltaSeconds();
+
+		// 현재위치 , 목적지	
+		float alpha = currentTime *2 / warpTime;
+		FVector curLoc = FMath::Lerp(curLoc, tarLoc, alpha);
+		SetActorLocation(curLoc);
+
+		// 만약 도착했다면 
+		if (alpha >= 1)
+		{
+			// 타이머를 멈추고 싶다.
+			GetWorld()->GetTimerManager().ClearTimer(warpTimerHandle);
+			// 내위치를 tarLoc으로 하고 싶다.
+			SetActorLocation(tarLoc);
+			// 충돌체를 켜고 싶다.
+			GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+		}
+
+		}), 0.033333f, true);
 }
