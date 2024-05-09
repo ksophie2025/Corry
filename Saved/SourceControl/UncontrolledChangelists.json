@@ -5,6 +5,9 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
+				"C:/Users/admin/Documents/GitHub/Corry/Content/VRTemplate/Blueprints/VRPawn.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/VRTemplate/Maps/VRTemplateMap.umap",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/MetaHumans/NewMetaHumanIdentity/Face/NewMetaHumanIdentity_FaceMesh.uasset",
 				"D:/Unreal Project/Git/Corry/Content/RTY/Level/Blackhole.umap",
 				"D:/Unreal Project/Git/Corry/Content/VRTemplate/Maps/VRTemplateMap_BuiltData.uasset",
 				"D:/Unreal Project/Git/Corry/Content/RTY/Niagara/NS_Star.uasset",
