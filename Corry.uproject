@@ -67,6 +67,10 @@
 		{
 			"Name": "ModelingToolsEditorMode",
 			"Enabled": true
+		},
+		{
+			"Name": "FakeFluid",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [
