@@ -28,8 +28,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	// VR카메라 컴포넌트를 생성하고 루트에 붙이고 싶다.
-	UPROPERTY(EditDefaultsOnly)
-	class UCameraComponent* vrCamera;
+// 	UPROPERTY(EditDefaultsOnly)
+// 	class UCameraComponent* vrCamera;
 
 	// 모션컨트롤러 왼손, 오른손 생성하고 루트에 붙이고 싶다.
 	UPROPERTY(EditDefaultsOnly)
@@ -122,12 +122,12 @@ public:
 
 
 	// -----------------------------------------------------------------------------
-	UPROPERTY(EditDefaultsOnly, Category = KSH)
-	class USceneComponent* echoRoot;
-
-	UPROPERTY(EditDefaultsOnly, Category = KSH)
-	class AEchoActor* echo;
-
-	UPROPERTY(EditDefaultsOnly, Category=KSH)
-	class UInputAction* ia_j;
+// 	UPROPERTY(EditDefaultsOnly, Category = KSH)
+// 	class USceneComponent* echoRoot;
+// 
+// 	UPROPERTY(EditDefaultsOnly, Category = KSH)
+// 	class AEchoActor* echo;
+// 
+// 	UPROPERTY(EditDefaultsOnly, Category=KSH)
+// 	class UInputAction* ia_j;
 };

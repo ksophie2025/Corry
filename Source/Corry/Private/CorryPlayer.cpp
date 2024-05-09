@@ -24,8 +24,8 @@ ACorryPlayer::ACorryPlayer()
 
 
 	// VR카메라 컴포넌트를 생성하고 루트에 붙이고 싶다.
-	vrCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("VR Camera"));
-	vrCamera->SetupAttachment(RootComponent);
+// 	vrCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("VR Camera"));
+// 	vrCamera->SetupAttachment(RootComponent);
 
 	// 모션컨트롤러 왼손, 오른손 생성하고 루트에 붙이고 싶다.
 	motionLeft = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("Motion Left"));
@@ -79,8 +79,8 @@ ACorryPlayer::ACorryPlayer()
 	teleportTraceVFX->SetupAttachment(RootComponent);
 
 	// -------------------------------------------------------
-	echoRoot =  CreateDefaultSubobject<USceneComponent>(TEXT("Echo Root"));
-	echoRoot->SetupAttachment(vrCamera);
+// 	echoRoot =  CreateDefaultSubobject<USceneComponent>(TEXT("Echo Root"));
+// 	echoRoot->SetupAttachment(vrCamera);
 	//echoRoot->SetRelativeLocation(FVector(-100,0,0));
 	
 }
@@ -113,9 +113,9 @@ void ACorryPlayer::BeginPlay()
 	TArray<AActor*> echoes;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AEchoActor::StaticClass(), echoes);
 	
-	echo = Cast<AEchoActor>(echoes[0]);
-	
-	echo->AttachToComponent(echoRoot, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+// 	echo = Cast<AEchoActor>(echoes[0]);
+// 	
+// 	echo->AttachToComponent(echoRoot, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 }
 
 void ACorryPlayer::Tick(float DeltaTime)
