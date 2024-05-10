@@ -5,13 +5,8 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
-				"C:/Users/admin/Documents/Github/Corry/Content/KYJ/Widgets/W_SimpleUI.uasset",
-				"C:/Users/admin/Documents/Github/Corry/Content/KYJ/Blueprints/TestMissionTriggers/BP_BatteryTrigger.uasset",
-				"C:/Users/admin/Documents/Github/Corry/Content/KYJ/Blueprints/TestMissionTriggers/BP_CircuitTrigger.uasset",
-				"C:/Users/admin/Documents/Github/Corry/Content/KYJ/Maps/KYJTestMap.umap",
-				"C:/Users/admin/Documents/Github/Corry/Content/RTY/BluePrints/GI_Rty.uasset",
-				"C:/Users/admin/Documents/Github/Corry/Content/VRTemplate/Blueprints/VRPawn.uasset",
-				"C:/Users/admin/Documents/Github/Corry/Content/KYJ/Dialogue/DT_Dialogues.uasset"
+				"C:/Users/admin/Documents/GitHub/Corry/Content/VRTemplate/Blueprints/VRPawn.uasset",
+				"C:/Users/admin/Documents/GitHub/Corry/Content/VRTemplate/Maps/VRTemplateMap.umap"
 			]
 		}
 	]
