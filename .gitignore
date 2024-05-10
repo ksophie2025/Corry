@@ -74,3 +74,5 @@ Content/MetaHumans/NewMetaHumanIdentity/Face/NewMetaHumanIdentity_FaceMesh.uasse
 
 # Cache files for the editor to use
 **/DerivedDataCache/*
+Content/ModularSciFi/Textures/Water/T_WaterDirt_normal.uasset
+Content/RTY/Level/BadLand.umap
