@@ -178,7 +178,7 @@ void ACorryPlayer::OnIAMove(const FInputActionValue& value)
 
 void ACorryPlayer::OnIATurn(const FInputActionValue& value)
 {
-	float v = value.Get<float>();
+	float v = value.Get<float>()*1.5f;
 	AddControllerYawInput(v);
 }
 
